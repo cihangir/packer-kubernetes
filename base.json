@@ -1,0 +1,72 @@
+{
+    "variables": {
+        "source_ami": "{{env `SOURCE_AMI`}}",
+        "region": "{{env `REGION`}}",
+        "instance_type": "{{env `INSTANCE_TYPE`}}",
+        "ami_name": "{{env `AMI_NAME`}}",
+        "ami_description": "{{env `AMI_DESCRIPTION`}}"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "{{user `region`}}",
+        "source_ami": "{{user `source_ami`}}",
+        "ami_name": "{{user `ami_name`}}",
+        "ami_description": "{{user `ami_description`}}",
+        "instance_type": "{{user `instance_type`}}",
+        "subnet_id": "{{user `subnet_id`}}",
+        "vpc_id": "{{user `vpc_id`}}",
+        "ssh_username": "core",
+        "ami_block_device_mappings": [{
+            "device_name": "/dev/xvdf",
+            "volume_size": 100,
+            "delete_on_termination": true
+        }],
+        "launch_block_device_mappings": [{
+            "device_name": "/dev/xvdf",
+            "volume_size": 100,
+            "delete_on_termination": true
+        }]
+    }],
+    "provisioners": [{
+        "type": "file",
+        "source": "units",
+        "destination": "/tmp"
+    }, {
+        "type": "file",
+        "source": "certs",
+        "destination": "/tmp"
+    }, {
+        "type": "shell",
+        "inline": [
+            "sudo mkdir -p /opt/bin",
+            "sudo wget -N -O /opt/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kubectl",
+            "sudo wget -N -O /opt/bin/kubelet https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kubelet",
+
+            "wget -N -O etcd.tar.gz https://github.com/coreos/etcd/releases/download/v{{user `etcd_version`}}/etcd-v{{user `etcd_version`}}-linux-amd64.tar.gz",
+            "tar -xvf etcd.tar.gz",
+            "sudo mv etcd-v{{user `etcd_version`}}-linux-amd64/etcd /opt/bin/",
+            "sudo mv etcd-v{{user `etcd_version`}}-linux-amd64/etcdctl /opt/bin/",
+
+            "wget -N -O flannel.tar.gz https://github.com/coreos/flannel/releases/download/v{{user `flannel_version`}}/flannel-{{user `flannel_version`}}-linux-amd64.tar.gz",
+            "tar -xvf flannel.tar.gz",
+            "sudo mv flannel-{{user `flannel_version`}}/flanneld /opt/bin/",
+
+            "sudo mv /tmp/units/* /etc/systemd/system",
+            "sudo chown root:root -R /etc/systemd/system",
+
+            "sudo mkdir -p /etc/kubernetes/ssl",
+            "sudo mv /tmp/certs/* /etc/kubernetes/ssl",
+            "sudo chmod 600 /etc/kubernetes/ssl/*-key.pem",
+            "sudo chown root:root /etc/kubernetes/ssl/*-key.pem",
+
+
+            "sudo chown root:root -R /opt/bin",
+            "sudo chmod 755 -R /opt/bin",
+
+            "rm -rf /tmp/units",
+            "rm -rf /tmp/certs"
+        ]
+    }]
+}
