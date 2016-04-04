@@ -60,8 +60,11 @@ Restart=always
 RestartSec=10s
 
 
-# allows this unit to be enabled via systemctl enable:
+# allows this unit to be enabled via systemctl enable
 [Install]
 WantedBy=multi-user.target
 
 # https://github.com/coreos/etcd/blob/master/contrib/systemd/etcd.service
+
+# TODO(cihangir) add backup for etcd
+# https://github.com/coreos/etcd/tree/master/contrib/systemd/etcd2-backup-coreos

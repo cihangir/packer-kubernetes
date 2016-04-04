@@ -70,7 +70,7 @@ RestartSec=5
 Delegate=yes
 
 
-# allows this unit to be enabled via systemctl enable:
+# allows this unit to be enabled via systemctl enable
 [Install]
 WantedBy=multi-user.target
 
