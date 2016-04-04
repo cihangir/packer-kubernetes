@@ -9,6 +9,10 @@ After=network.target flannel.service
 EnvironmentFile=/etc/kubernetes.env
 EnvironmentFile=/run/flannel/subnet.env
 
+#  systemd supports a simple notification protocol that allows daemons to make
+#  systemd aware that they are done initializing
+Type=notify
+
 ExecStartPre=/bin/mount --make-rprivate /
 ExecStart=/opt/bin/docker --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} $DOCKER_OPTS
 
@@ -65,6 +69,8 @@ RestartSec=5
 # containers
 Delegate=yes
 
+
+# allows this unit to be enabled via systemctl enable:
 [Install]
 WantedBy=multi-user.target
 
