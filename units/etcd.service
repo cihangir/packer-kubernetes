@@ -4,10 +4,10 @@ Documentation=https://github.com/coreos/etcd
 
 
 
+
 [Service]
 # set env vars properly
 EnvironmentFile=/etc/kubernetes.env
-
 
 #  systemd supports a simple notification protocol that allows daemons to make
 #  systemd aware that they are done initializing
@@ -26,7 +26,6 @@ ExecStart=/usr/bin/etcd
 LimitNOFILE=40000
 LimitNPROC=40000
 LimitCORE=infinity
-
 
 # Specify the maximum number of tasks that may be created in the unit. This
 # ensures that the number of tasks accounted for the unit stays below a specific
@@ -60,8 +59,8 @@ Restart=always
 RestartSec=10s
 
 
-# allows this unit to be enabled via systemctl enable
 [Install]
+# allows this unit to be enabled via systemctl enable
 WantedBy=multi-user.target
 
 # https://github.com/coreos/etcd/blob/master/contrib/systemd/etcd.service

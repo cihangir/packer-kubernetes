@@ -4,6 +4,7 @@ Documentation=https://github.com/coreos/flannel
 After=network-online.target
 Wants=network-online.target
 
+
 [Service]
 # set env vars properly
 EnvironmentFile=/etc/kubernetes.env
@@ -16,7 +17,6 @@ ExecStartPre=/opt/bin/etcdctl $FLANNEL_ETCDCTL_OPTS \
   mk $FLANNEL_ETCD_PREFIX ${FLANNEL_NETWORK_CONFIG}
 ExecStart=/opt/bin/flanneld $FLANNEL_OPTS
 
-
 # These settings set both soft and hard limits of various resources for executed
 # processes.
 # Note that most process resource limits configured with these options are
@@ -26,7 +26,6 @@ ExecStart=/opt/bin/flanneld $FLANNEL_OPTS
 LimitNOFILE=1048576
 LimitNPROC=1048576
 LimitCORE=infinity
-
 
 # Specify the maximum number of tasks that may be created in the unit. This
 # ensures that the number of tasks accounted for the unit stays below a specific
@@ -59,6 +58,7 @@ Restart=on-failure
 # "5min 20s". Defaults to 100ms.
 RestartSec=5
 
-# allows this unit to be enabled via systemctl enable
+
 [Install]
+# allows this unit to be enabled via systemctl enable
 WantedBy=multi-user.target

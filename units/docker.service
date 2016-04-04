@@ -4,6 +4,7 @@ Documentation=https://docs.docker.com
 Requires=flannel.service
 After=network.target flannel.service
 
+
 [Service]
 # set env vars properly
 EnvironmentFile=/etc/kubernetes.env
@@ -16,7 +17,6 @@ Type=notify
 ExecStartPre=/bin/mount --make-rprivate /
 ExecStart=/opt/bin/docker --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} $DOCKER_OPTS
 
-
 # These settings set both soft and hard limits of various resources for executed
 # processes.
 # Note that most process resource limits configured with these options are
@@ -26,7 +26,6 @@ ExecStart=/opt/bin/docker --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} $DOCKER_O
 LimitNOFILE=1048576
 LimitNPROC=1048576
 LimitCORE=infinity
-
 
 # Specify the maximum number of tasks that may be created in the unit. This
 # ensures that the number of tasks accounted for the unit stays below a specific
@@ -59,7 +58,6 @@ Restart=on-failure
 # "5min 20s". Defaults to 100ms.
 RestartSec=5
 
-
 # Turns on delegation of further resource control partitioning to processes of
 # the unit. For unprivileged services (i.e. those using the User= setting), this
 # allows processes to create a subhierarchy beneath its control group path. For
@@ -70,8 +68,8 @@ RestartSec=5
 Delegate=yes
 
 
-# allows this unit to be enabled via systemctl enable
 [Install]
+# allows this unit to be enabled via systemctl enable
 WantedBy=multi-user.target
 
 # https://github.com/docker/docker/blob/master/contrib/init/systemd/docker.service
