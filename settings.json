@@ -1,0 +1,13 @@
+{
+  "source_ami": "ami-92dffff1",
+  "region": "ap-southeast-2",
+  "instance_type": "t2.micro",
+  "ami_name": "packer-kubernetes-0-1-20160404-1",
+  "ami_description": "CoreOS Kubernetes Base Image",
+  "kube_version": "1.2.1",
+  "etcd_version": "2.3.1",
+  "flannel_version": "0.5.5",
+  "vpc_id": "",
+  "subnet_id": "",
+  "ami_url": "http://stable.release.core-os.net/amd64-usr/current/coreos_production_ami_all.json"
+}
