@@ -3,11 +3,11 @@
         "type": "amazon-ebs",
         "access_key": "{{user `aws_access_key`}}",
         "secret_key": "{{user `aws_secret_key`}}",
+        "ami_name": "{{user `ami_name`}}",
+        "instance_type": "{{user `instance_type`}}",
         "region": "{{user `region`}}",
         "source_ami": "{{user `source_ami`}}",
-        "ami_name": "{{user `ami_name`}}",
         "ami_description": "{{user `ami_description`}}",
-        "instance_type": "{{user `instance_type`}}",
         "subnet_id": "{{user `subnet_id`}}",
         "vpc_id": "{{user `vpc_id`}}",
         "ssh_username": "core",
@@ -20,7 +20,10 @@
             "device_name": "/dev/xvdf",
             "volume_size": 100,
             "delete_on_termination": true
-        }]
+        }],
+        "tags": {
+            "Name": "{{user `ami_name`}}"
+        }
     }],
     "provisioners": [{
         "type": "file",
