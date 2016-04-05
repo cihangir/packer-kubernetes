@@ -1,11 +1,4 @@
 {
-    "variables": {
-        "source_ami": "{{env `SOURCE_AMI`}}",
-        "region": "{{env `REGION`}}",
-        "instance_type": "{{env `INSTANCE_TYPE`}}",
-        "ami_name": "{{env `AMI_NAME`}}",
-        "ami_description": "{{env `AMI_DESCRIPTION`}}"
-    },
     "builders": [{
         "type": "amazon-ebs",
         "access_key": "{{user `aws_access_key`}}",
@@ -31,12 +24,12 @@
     }],
     "provisioners": [{
         "type": "file",
-        "source": "units",
-        "destination": "/tmp"
+        "source": "./units",
+        "destination": "/tmp/units"
     }, {
         "type": "file",
-        "source": "certs",
-        "destination": "/tmp"
+        "source": "./certs",
+        "destination": "/tmp/certs"
     }, {
         "type": "shell",
         "inline": [
@@ -53,14 +46,13 @@
             "tar -xvf flannel.tar.gz",
             "sudo mv flannel-{{user `flannel_version`}}/flanneld /opt/bin/",
 
-            "sudo mv /tmp/units/* /etc/systemd/system",
+            "sudo cp -R /tmp/units/* /etc/systemd/system",
             "sudo chown root:root -R /etc/systemd/system",
 
             "sudo mkdir -p /etc/kubernetes/ssl",
-            "sudo mv /tmp/certs/* /etc/kubernetes/ssl",
+            "sudo cp -R /tmp/certs/ssl/* /etc/kubernetes/ssl",
             "sudo chmod 600 /etc/kubernetes/ssl/*-key.pem",
             "sudo chown root:root /etc/kubernetes/ssl/*-key.pem",
-
 
             "sudo chown root:root -R /opt/bin",
             "sudo chmod 755 -R /opt/bin",
