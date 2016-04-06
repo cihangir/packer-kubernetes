@@ -9,12 +9,12 @@ Documentation=https://github.com/coreos/etcd
 # set env vars properly
 EnvironmentFile=/etc/kubernetes.env
 
+
 #  systemd supports a simple notification protocol that allows daemons to make
 #  systemd aware that they are done initializing
 Type=notify
 
-ExecStart=/usr/bin/etcd
-
+ExecStart=/opt/bin/etcd $ETCD_OPTS
 
 
 # These settings set both soft and hard limits of various resources for executed
@@ -51,12 +51,12 @@ TasksMax=infinity
 # the service expires. If set to always, the service will be restarted
 # regardless of whether it exited cleanly or not, got terminated abnormally by a
 # signal, or hit a timeout.
-Restart=always
+Restart=on-failure
 
 # Configures the time to sleep before restarting a service (as configured with
 # Restart=). Takes a unit-less value in seconds, or a time span value such as
 # "5min 20s". Defaults to 100ms.
-RestartSec=10s
+RestartSec=5
 
 
 [Install]
