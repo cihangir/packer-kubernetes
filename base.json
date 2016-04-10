@@ -48,6 +48,10 @@
         "sudo mkdir -p /opt/bin",
         "sudo wget -N -O /opt/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kubectl",
         "sudo wget -N -O /opt/bin/kubelet https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kubelet",
+        "sudo wget -N -O /opt/bin/kube-apiserver https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kube-apiserver",
+        "sudo wget -N -O /opt/bin/kube-controller-manager https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kube-controller-manager",
+        "sudo wget -N -O /opt/bin/kube-proxy https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kube-proxy",
+        "sudo wget -N -O /opt/bin/kube-scheduler https://storage.googleapis.com/kubernetes-release/release/v{{user `kube_version`}}/bin/linux/amd64/kube-scheduler",
 
         "wget -N -O etcd.tar.gz https://github.com/coreos/etcd/releases/download/v{{user `etcd_version`}}/etcd-v{{user `etcd_version`}}-linux-amd64.tar.gz",
         "tar -xvf etcd.tar.gz",
