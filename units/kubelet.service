@@ -1,8 +1,9 @@
 [Unit]
-Description=Kubernetes Kubelet Nodes
+Description=Kubernetes Kubelet Master
 Documentation=https://github.com/kubernetes/kubernetes
 Requires=docker.service
 After=docker.service
+After=replace_private_ipv4.service
 
 
 [Service]
@@ -16,7 +17,7 @@ EnvironmentFile=/etc/kubernetes.env
 
 ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
 ExecStartPre=/usr/bin/mkdir -p /srv/kubernetes/manifests
-ExecStart=/opt/bin/kubelet $KUBE_KUBELET_NODE_OPTS
+ExecStart=/opt/bin/kubelet $KUBE_KUBELET_OPTS
 
 # These settings set both soft and hard limits of various resources for executed
 # processes.
