@@ -1,0 +1,9 @@
+[Unit]
+Description=Replace private_ipv4
+
+[Service]
+Type=oneshot
+
+RemainAfterExit=yes
+
+ExecStart=/etc/private_ipv4_replacer.sh
