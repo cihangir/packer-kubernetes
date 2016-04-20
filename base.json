@@ -48,6 +48,11 @@
       "destination": "/tmp/private_ipv4_replacer.sh"
     },
     {
+      "type": "file",
+      "source": "./create_kube_system_namespace.sh",
+      "destination": "/tmp/create_kube_system_namespace.sh"
+    },
+    {
       "type": "shell",
       "inline": [
         "sudo mkdir -p /opt/bin",
@@ -69,6 +74,10 @@
         "sudo cp -R /tmp/private_ipv4_replacer.sh /etc/private_ipv4_replacer.sh",
         "sudo chmod 755 /etc/private_ipv4_replacer.sh",
         "sudo chown root:root /etc/private_ipv4_replacer.sh",
+
+        "sudo cp -R /tmp/create_kube_system_namespace.sh /etc/create_kube_system_namespace.sh",
+        "sudo chmod 755 /etc/create_kube_system_namespace.sh",
+        "sudo chown root:root /etc/create_kube_system_namespace.sh",
 
         "sudo chown root:root -R /opt/bin",
         "sudo chmod 755 -R /opt/bin",

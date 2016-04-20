@@ -1,0 +1,9 @@
+[Unit]
+Description=Create kube-system namespace
+Requires=kubelet.service
+After=kubelet.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/etc/create_kube_system_namespace.sh
