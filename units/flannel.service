@@ -13,8 +13,7 @@ EnvironmentFile=/etc/kubernetes.env
 #  systemd aware that they are done initializing
 Type=notify
 
-ExecStartPre=/opt/bin/etcdctl $FLANNEL_ETCDCTL_OPTS \
-  mk $FLANNEL_ETCD_PREFIX ${FLANNEL_NETWORK_CONFIG}
+ExecStartPre=-/opt/bin/etcdctl $FLANNEL_ETCDCTL_OPTS mk $FLANNEL_ETCD_PREFIX ${FLANNEL_NETWORK_CONFIG}
 ExecStart=/opt/bin/flanneld $FLANNEL_OPTS
 
 # These settings set both soft and hard limits of various resources for executed
@@ -26,11 +25,6 @@ ExecStart=/opt/bin/flanneld $FLANNEL_OPTS
 LimitNOFILE=1048576
 LimitNPROC=1048576
 LimitCORE=infinity
-
-# Specify the maximum number of tasks that may be created in the unit. This
-# ensures that the number of tasks accounted for the unit stays below a specific
-# limit. If assigned the special value "infinity", no tasks limit is applied.
-TasksMax=infinity
 
 # Takes one of no, on-success, on-failure, on-abnormal, on-watchdog, on-abort,
 # or always. If set to no (the default), the service will not be restarted. If
