@@ -4,19 +4,30 @@ set -o errexit
 files=(
   /etc/kubernetes.env
   /etc/instance.env
-  /etc/kubernetes/manifests/kube-apiserver.yaml
-  /etc/kubernetes/manifests/kube-controller-manager.yaml
-  /etc/kubernetes/manifests/kube-podmaster.yaml
-  /etc/kubernetes/manifests/kube-proxy.yaml
-  /etc/kubernetes/manifests/kube-scheduler.yaml
-  /etc/kubernetes/addons/skydns-rc.yaml
-  /etc/kubernetes/addons/skydns-svc.yaml
+)
+
+folders=(
+  /etc/kubernetes/manifests
+  /etc/kubernetes/addons
 )
 
 privateIp=$(cat /etc/private_ipv4)
 
 for i in "${files[@]}"
 do
-  cati=$(cat $i)
-  echo "${cati//\$private_ipv4/$privateIp}" > $i
-done
+  if [ -f $i ]; then
+    cati=$(cat $i)
+    echo "${cati//\$private_ipv4/$privateIp}" > $i
+  fi
+done;
+
+for fi in "${folders[@]}"
+do
+  for i in $(ls -d $fi);
+  do
+    if [ -f $i ]; then
+      cati=$(cat $i)
+      echo "${cati//\$private_ipv4/$privateIp}" > $i
+    fi
+  done;
+done;
