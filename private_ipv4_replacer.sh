@@ -21,13 +21,17 @@ do
   fi
 done;
 
-for fi in "${folders[@]}"
+for folder in "${folders[@]}"
 do
-  for i in $(ls -d $fi);
-  do
-    if [ -f $i ]; then
-      cati=$(cat $i)
-      echo "${cati//\$private_ipv4/$privateIp}" > $i
-    fi
-  done;
+  echo "$folder"
+  if [ -d "$folder" ]; then
+    for i in $(ls -d $folder);
+    do
+      if [ -f $i ]; then
+        echo "$fi"
+        cati=$(cat $i)
+        echo "${cati//\$private_ipv4/$privateIp}" > $i
+      fi
+    done;
+  fi;
 done;
