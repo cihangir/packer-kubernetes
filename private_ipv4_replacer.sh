@@ -23,14 +23,13 @@ done;
 
 for folder in "${folders[@]}"
 do
-  echo "$folder"
   if [ -d "$folder" ]; then
-    for i in $(ls -d $folder);
+    for i in $(ls $folder);
     do
-      if [ -f $i ]; then
-        echo "$fi"
-        cati=$(cat $i)
-        echo "${cati//\$private_ipv4/$privateIp}" > $i
+      file="$folder/$i"
+      if [ -f $file ]; then
+        cati=$(cat $file)
+        echo "${cati//\$private_ipv4/$privateIp}" > $file
       fi
     done;
   fi;
