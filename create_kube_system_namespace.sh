@@ -1,8 +1,11 @@
 #!/bin/bash
 
+echo "initial sleep for 60 secs.."
+sleep 60
+
 COUNTER=0
-TRY_COUNT=15
-INTERVAL=5
+TRY_COUNT=50
+INTERVAL=10
 RES=""
 until [ -n "$RES" ]; do
     COUNTER=$((COUNTER + 1))
