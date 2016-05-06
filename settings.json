@@ -1,6 +1,6 @@
 {
-  "source_ami": "ami-d75bd4bb",
-  "region": "sa-east-1",
+  "source_ami": "ami-fc527e9f",
+  "region": "ap-southeast-2",
   "instance_type": "m3.xlarge",
   "ami_name": "coreos-stable-hvm-kubernetes",
   "ami_description": "CoreOS Kubernetes Base Image",
